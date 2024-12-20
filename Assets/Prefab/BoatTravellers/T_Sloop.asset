@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ff79e270636ab4d9ea3e6fe0a7a9a5, type: 3}
   m_Name: T_Sloop
   m_EditorClassIdentifier: 
-  Type: 0
-  Faction: 0
+  Type: 1
+  Faction: 1
   Level: 0
