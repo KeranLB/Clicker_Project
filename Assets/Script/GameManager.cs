@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 {
     #region Scripts
     [HideInInspector] private CoastManager coastManager;
+    [HideInInspector] private UpgradeManager upgradeManager;
+    [HideInInspector] private BoatManager boatManager;
+    [HideInInspector] private AutoClicManager autoClicManager;
     #endregion
 
     #region Player
@@ -21,23 +24,22 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Level
-    public int levelAutoClic;
-    public int levelLimitUpgrade;
-    public int levelPlayerDamage;
-    public int levelPlayerSell;
-    public int levelPlayerHealth;
-    public int levelShop;
+    [HideInInspector] public int levelAutoClic;
+    [HideInInspector] public int levelLimitUpgrade;
+    [HideInInspector] public int levelPlayerDamage;
+    [HideInInspector] public int levelPlayerSell;
+    [HideInInspector] public int levelPlayerHealth;
+    [HideInInspector] public int levelShop;
     #endregion
 
-    public BoatManager boatManager;
     #region score
-    public int playerGoldScore;
-    public int playerSellScore;
+    [HideInInspector] public int playerGoldScore;
+    [HideInInspector] public int playerSellScore;
     #endregion
 
     #region screenInfos
     [Header("Screen :")]
-    [SerializeField] public Text textLevelPlayer;
+    [SerializeField] private Text textLevelPlayer;
     [SerializeField] private Text textGoldScore;
     [SerializeField] private Text textSellScore;
     [SerializeField] private Text textLevelShop;
@@ -49,7 +51,19 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        StartGameManager();
+        coastManager.StartCoastManager();
+        boatManager.StartBoatManager();
+        upgradeManager.StartUpgradeManager();
+        autoClicManager.StartAutoClicManager();
+    }
+
+    private void StartGameManager()
+    {
         coastManager = gameObject.GetComponent<CoastManager>();
+        upgradeManager = gameObject.GetComponent<UpgradeManager>();
+        boatManager = gameObject.GetComponent<BoatManager>();
+        autoClicManager = gameObject.GetComponent<AutoClicManager>();
 
         playerTitle = new List<string>
         {
@@ -82,7 +96,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         levelTextUpdate();
-        
+        coastManager.PlayVerifCoast();
     }
     /*
     private void Test()

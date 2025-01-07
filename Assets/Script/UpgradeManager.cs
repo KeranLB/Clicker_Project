@@ -7,7 +7,6 @@ using UnityEngine.WSA;
 public class UpgradeManager : MonoBehaviour
 {
     #region Scripts
-    [Header("ScriptManager :")]
     [HideInInspector] private GameManager gameManager;
     [HideInInspector] private CoastManager coastManager;
     #endregion
@@ -29,7 +28,7 @@ public class UpgradeManager : MonoBehaviour
     [HideInInspector] public Button healthUpButton;
     #endregion
 
-    private void Start()
+    public void StartUpgradeManager()
     {
         gameManager = gameObject.GetComponent<GameManager>();
         coastManager = gameObject.GetComponent<CoastManager>();

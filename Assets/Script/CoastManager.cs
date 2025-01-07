@@ -26,7 +26,7 @@ public class CoastManager : MonoBehaviour
     [HideInInspector] public int coastButtonAutoClicUp;
     #endregion
     // Start is called before the first frame update
-    void Start()
+    public void StartCoastManager()
     {
         gameManager = gameObject.GetComponent<GameManager>();
         upgradeManager = gameObject.GetComponent<UpgradeManager>();
@@ -58,15 +58,21 @@ public class CoastManager : MonoBehaviour
         coastButtonAutoClicUp = 1000;
     }
 
-    public void Update()
+    public void PlayVerifCoast()
     {
         CoastVerif(upgradeManager.levelUpButton, coastButtonLevelUp);
         CoastVerif(upgradeManager.titleUpButton, coastButtonTitleUp);
         CoastVerif(upgradeManager.damageUpButton, coastButtonDamageUp);
         CoastVerif(upgradeManager.sellUpButton, coastButtonSellUp);
         CoastVerif(upgradeManager.healthUpButton, coastButtonHealthUp);
-        CoastVerif(autoClicManager.getAutoClicButton, coastButtonGetAutoClic);
-        CoastVerif(autoClicManager.autoClicUpButton, coastButtonAutoClicUp);
+        if (autoClicManager.autoClic == false)
+        {
+            CoastVerif(autoClicManager.getAutoClicButton, coastButtonGetAutoClic);
+        }
+        else
+        {
+            CoastVerif(autoClicManager.autoClicUpButton, coastButtonAutoClicUp);
+        }
     }
 
     public void CoastVerif(Button test, int coast)

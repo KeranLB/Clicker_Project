@@ -11,7 +11,7 @@ public class AutoClicManager : MonoBehaviour
     #endregion
 
     #region Variable
-    private bool autoClic;
+    [HideInInspector] public bool autoClic;
     private bool autoClicSelling;
     private bool autoClicDamaging;
     private float timer = 1f;
@@ -24,7 +24,7 @@ public class AutoClicManager : MonoBehaviour
     [HideInInspector] public Button autoClicUpButton;
     #endregion
 
-    void Start()
+    public void StartAutoClicManager()
     {
         gameManager = gameObject.GetComponent<GameManager>();
         boatManager = gameObject.GetComponent<BoatManager>();
@@ -33,8 +33,9 @@ public class AutoClicManager : MonoBehaviour
         autoClic = false;
         autoClicSelling = false;
         autoClicDamaging = false;
-        getAutoClicButton = getAutoClicButton.GetComponent<Button>();
-        autoClicUpButton = autoClicUpButton.GetComponent<Button>();
+        getAutoClicButton = getAutoClicGameObject.GetComponent<Button>();
+        autoClicUpButton = autoClicUpGameObject.GetComponent<Button>();
+        autoClicUpGameObject.SetActive(false);
     }
 
     public void ButonGetAutoClic()

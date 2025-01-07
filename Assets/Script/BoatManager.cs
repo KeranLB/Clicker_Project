@@ -21,7 +21,7 @@ public class BoatManager : MonoBehaviour
 
     #region Screen
     [Header("Image Boat Boutton :")]
-    [SerializeField] private Image BoatButton;
+    [HideInInspector] private Image BoatButton;
     [Header("Text :")]
     [SerializeField] private Text textValue;
     [SerializeField] private Text textFaction;
@@ -36,9 +36,9 @@ public class BoatManager : MonoBehaviour
     #endregion
 
     #region StatReferences
-    public int refBoatMaxHealth;
-    public int refBoatDamage;
-    public int refBoatValue;
+    [HideInInspector]public int refBoatMaxHealth;
+    [HideInInspector] public int refBoatDamage;
+    [HideInInspector] public int refBoatValue;
     #endregion
 
     #region StatActive
@@ -48,7 +48,7 @@ public class BoatManager : MonoBehaviour
     private int activeBoatValue;
     #endregion
 
-    void Start()
+    public void StartBoatManager()
     {
         gameManager = gameObject.GetComponent<GameManager>();
 
