@@ -30,56 +30,98 @@ public class BoatManager : MonoBehaviour
     #endregion
 
     #region Data
-    private Dictionary<int, float> levelMultiple;
-    private Dictionary<string, float> titleMultiple;
+    private Dictionary<string, int> baseHealthStatsFromTitle;
+    private Dictionary<string, int> baseBoatLootStats;
+    private Dictionary<string, int> baseBoatDamageStats;
+    private Dictionary<string, int> addStatsFromLevel;
     private List<Boat> factionList;
     #endregion
 
-    #region StatReferences
+    #region StatsReferences
     [HideInInspector]public int refBoatMaxHealth;
     [HideInInspector] public int refBoatDamage;
     [HideInInspector] public int refBoatValue;
     #endregion
 
-    #region StatActive
+    #region StatsActives
     private int activeBoatMaxHealth;
     private int activeBoatCurrentHealth;
     private int activeBoatDamage;
     private int activeBoatValue;
     #endregion
 
-    public void StartBoatManager()
+    #region Slider
+    [Header("Slider :")]
+    [SerializeField] private Slider boatHealthBar;
+    [SerializeField] private Slider playerHealthBar;
+    #endregion
+
+    private void Start()
     {
         gameManager = gameObject.GetComponent<GameManager>();
 
-        levelMultiple = new Dictionary<int, float>()
+        baseHealthStatsFromTitle = new Dictionary<string, int>()
         {
-            { 1, 1.1f},
-            { 2, 1.2f},
-            { 3, 1.3f},
-            { 4, 1.4f},
-            { 5, 1.5f},
-            { 6, 1.6f},
-            { 7, 1.7f},
-            { 8, 1.8f},
-            { 9, 1.9f},
-            { 10, 2f},
+            { "marin", 100},
+            { "musicien", 200},
+            { "cuisinier", 400},
+            { "canonnier", 800},
+            { "voilier", 1600},
+            { "tonnelier", 3200},
+            { "charpentier", 6400},
+            { "officier", 12800},
+            { "maitreEquipage", 25600},
+            { "Navigateur", 51200},
+            { "QuartierMaitre", 102400},
+            { "Capitaine", 204800},
         };
 
-        titleMultiple = new Dictionary<string, float>()
+        baseBoatLootStats = new Dictionary<string, int>()
         {
-            { "marin", 0.25f},
-            { "musicien", 0.5f},
-            { "cuisinier", 0.75f},
-            { "canonnier", 1f},
-            { "voilier", 1.25f},
-            { "tonnelier", 1.5f},
-            { "charpentier", 1.75f},
-            { "officier", 2f},
-            { "maitreEquipage", 2.25f},
-            { "Navigateur", 2.5f},
-            { "QuartierMaitre", 2.75f},
-            { "Capitaine", 3f},
+            { "marin", 25},
+            { "musicien", 50},
+            { "cuisinier", 100},
+            { "canonnier", 200},
+            { "voilier", 400},
+            { "tonnelier", 800},
+            { "charpentier", 1600},
+            { "officier", 3200},
+            { "maitreEquipage", 6400},
+            { "Navigateur", 12800},
+            { "QuartierMaitre", 25600},
+            { "Capitaine", 51200},
+        };
+
+        baseBoatDamageStats = new Dictionary<string, int>()
+        {
+            { "marin", 25},
+            { "musicien", 50},
+            { "cuisinier", 100},
+            { "canonnier", 200},
+            { "voilier", 400},
+            { "tonnelier", 800},
+            { "charpentier", 1600},
+            { "officier", 3200},
+            { "maitreEquipage", 6400},
+            { "Navigateur", 12800},
+            { "QuartierMaitre", 25600},
+            { "Capitaine", 51200},
+        };
+
+        addStatsFromLevel = new Dictionary<string, int>()
+        {
+            { "marin", 1},
+            { "musicien", 2},
+            { "cuisinier", 4},
+            { "canonnier", 8},
+            { "voilier", 16},
+            { "tonnelier", 32},
+            { "charpentier", 64},
+            { "officier", 128},
+            { "maitreEquipage", 256},
+            { "Navigateur", 512},
+            { "QuartierMaitre", 1024},
+            { "Capitaine", 2048},
         };
 
         factionList = new List<Boat>()
@@ -91,15 +133,30 @@ public class BoatManager : MonoBehaviour
         };
     }
 
+    /*
     public void OnClic()
     {
         print(levelMultiple.GetValueOrDefault(2));
         print(titleMultiple.GetValueOrDefault("marin"));
         print(factionList[0]);
     }
+    */
+
+    private void SetBoatref()
+    {
+        int baseRef = baseHealthStatsFromTitle.GetValueOrDefault(gameManager.playerTitle[gameManager.playerTitleIndex]);
+        int addRef = addStatsFromLevel.GetValueOrDefault(gameManager.playerTitle[gameManager.playerTitleIndex]);
+        refBoatMaxHealth = baseRef + (addRef * gameManager.playerLevel);
+        baseRef = baseBoatLootStats.GetValueOrDefault(gameManager.playerTitle[gameManager.playerTitleIndex]);
+        refBoatValue = baseRef + (addRef * gameManager.playerLevel);
+        baseRef = baseBoatDamageStats.GetValueOrDefault(gameManager.playerTitle[gameManager.playerTitleIndex]);
+        refBoatDamage = baseRef + (addRef * gameManager.playerLevel);
+    }
 
     public void SpawnBoat()
     {
+        SetBoatref();
+
         var index = Random.Range(0, 4);
         activeBoat = factionList[index];
 
@@ -113,6 +170,11 @@ public class BoatManager : MonoBehaviour
         textFaction.text = activeBoat.boatFaction.ToString();
         textHp.text = activeBoatCurrentHealth.ToString() + "/" + activeBoatMaxHealth.ToString();
         textAtk.text = activeBoatDamage.ToString();
+        
+        boatHealthBar.maxValue = activeBoatMaxHealth;
+        boatHealthBar.value = activeBoatCurrentHealth;
+
+        StartCoroutine(DamageToPlayer());
     }
 
     public void DamageToBoat()
@@ -124,6 +186,25 @@ public class BoatManager : MonoBehaviour
         else
         {
             activeBoatCurrentHealth -= gameManager.playerClicDamage;
+        }
+        boatHealthBar.value = activeBoatCurrentHealth;
+    }
+
+    IEnumerator DamageToPlayer()
+    {
+        while (playerHealthBar.value > 0 && boatHealthBar.value > 0)
+        {
+            yield return new WaitForSeconds(1);
+            playerHealthBar.value -= activeBoatDamage;
+        }
+
+        if (playerHealthBar.value < 0)
+        {
+            SpawnBoat();
+        }
+        else if (playerHealthBar.value > 0)
+        {
+            gameManager.playerSellScore += activeBoatValue;
         }
     }
 }

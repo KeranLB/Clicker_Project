@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         StartGameManager();
         coastManager.StartCoastManager();
-        boatManager.StartBoatManager();
+        //boatManager.StartBoatManager();
         upgradeManager.StartUpgradeManager();
         autoClicManager.StartAutoClicManager();
     }
@@ -95,6 +95,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //test mode
+        playerGoldScore = 999999999;
         levelTextUpdate();
         coastManager.PlayVerifCoast();
     }

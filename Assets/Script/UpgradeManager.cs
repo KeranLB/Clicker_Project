@@ -78,7 +78,7 @@ public class UpgradeManager : MonoBehaviour
         }
         gameManager.levelPlayerDamage++;
         gameManager.playerGoldScore -= coastManager.coastButtonDamageUp;
-        gameManager.playerClicDamage += ((gameManager.playerClicDamage * 50) / 100);
+        gameManager.playerClicDamage += 10 * (gameManager.playerTitleIndex + 1);
         coastManager.coastButtonDamageUp += coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
     }
 
