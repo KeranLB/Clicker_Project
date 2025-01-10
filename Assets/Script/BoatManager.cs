@@ -8,6 +8,7 @@ public class BoatManager : MonoBehaviour
     #region Scripts
     [Header("ScriptsManager :")]
     [HideInInspector] private GameManager gameManager;
+    private AutoClicManager autoClicManager;
     #endregion
 
     #region ScriptableObjects
@@ -59,6 +60,7 @@ public class BoatManager : MonoBehaviour
     private void Start()
     {
         gameManager = gameObject.GetComponent<GameManager>();
+        autoClicManager = gameObject.GetComponent<AutoClicManager>();
 
         baseHealthStatsFromTitle = new Dictionary<string, int>()
         {
@@ -133,15 +135,6 @@ public class BoatManager : MonoBehaviour
         };
     }
 
-    /*
-    public void OnClic()
-    {
-        print(levelMultiple.GetValueOrDefault(2));
-        print(titleMultiple.GetValueOrDefault("marin"));
-        print(factionList[0]);
-    }
-    */
-
     private void SetBoatref()
     {
         int baseRef = baseHealthStatsFromTitle.GetValueOrDefault(gameManager.playerTitle[gameManager.playerTitleIndex]);
@@ -156,6 +149,7 @@ public class BoatManager : MonoBehaviour
     public void SpawnBoat()
     {
         SetBoatref();
+        StopAllCoroutines();
 
         var index = Random.Range(0, 4);
         activeBoat = factionList[index];
@@ -198,12 +192,20 @@ public class BoatManager : MonoBehaviour
         while (playerHealthBar.value > 0 && boatHealthBar.value > 0)
         {
             yield return new WaitForSeconds(1);
+            print("DamageToPlayer is running.");
             playerHealthBar.value -= activeBoatDamage;
         }
 
         if (playerHealthBar.value <= 0)
         {
-            gameManager.playerSellScore = 0;
+            if (!autoClicManager.isSwitchingToShop)
+            {
+                gameManager.playerSellScore = 0;
+            }
+            else
+            {
+                autoClicManager.isSwitchingToShop = false;
+            }
             SpawnBoat();
         }
         else if (playerHealthBar.value > 0)

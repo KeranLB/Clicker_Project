@@ -51,18 +51,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject levelUpButton;
     #endregion
 
-    void Start()
+    private void Start()
     {
-        StartGameManager();
-        //coastManager.StartCoastManager();
-        //boatManager.StartBoatManager();
-        //upgradeManager.StartUpgradeManager();
-        //autoClicManager.StartAutoClicManager();
-    }
-
-    private void StartGameManager()
-    {
-        // Get OtheScripts
+        // Récupère les autres scripts
         coastManager = gameObject.GetComponent<CoastManager>();
         upgradeManager = gameObject.GetComponent<UpgradeManager>();
         boatManager = gameObject.GetComponent<BoatManager>();
@@ -104,7 +95,7 @@ public class GameManager : MonoBehaviour
         {
             playerGoldScore = 999999999;
         }
-
+        // enlève le bouton de d'amélioration de nitveau et de titre au niveau max
         if (playerTitleIndex == 11 && playerLevel == 10)
         {
             levelUpButton.SetActive(false);
@@ -137,12 +128,19 @@ public class GameManager : MonoBehaviour
         textLevelHealth.text = "HP Level" + levelPlayerHealth.ToString();
         textLevelAutoClic.text = "Auto Clic Level" + levelAutoClic.ToString();
         // affiche le prix de chaque amélioration
-
+        coastManager.textCoastLevelUp.text = $"Level Up : {coastManager.coastButtonLevelUp}$";
+        coastManager.textCoastTitleUp.text = $"Title Up : {coastManager.coastButtonTitleUp}$";
+        coastManager.textCoastDamage.text = $"Damage Up : {coastManager.coastButtonDamageUp}$";
+        coastManager.textCoastSell.text = $" Sell Up : {coastManager.coastButtonSellUp}$";
+        coastManager.textCoastHealth.text = $"Health Up : {coastManager.coastButtonHealthUp}$";
+        coastManager.textCoastGetAutoClic.text = $"Get Auto Clic : {coastManager.coastButtonGetAutoClic}$";
+        coastManager.textCoastAutoClic.text = $"Auto Clic Up : {coastManager.coastButtonAutoClicUp}$";
     }
     
     public void ButtonShop()
     {
         SellScoreToGoldScore(playerClicSell);
+        print(playerClicSell);
     }
 
     public void SellScoreToGoldScore(int sell)
@@ -151,6 +149,10 @@ public class GameManager : MonoBehaviour
         {
             playerGoldScore += playerSellScore;
             playerSellScore = 0;
+        }
+        else if (playerSellScore == 0)
+        {
+            print("Vous n'avez plus de loot.");
         }
         else
         {

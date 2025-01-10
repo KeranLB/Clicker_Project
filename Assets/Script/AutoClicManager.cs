@@ -15,6 +15,7 @@ public class AutoClicManager : MonoBehaviour
     private bool autoClicSelling;
     private bool autoClicDamaging;
     private float timer = 1f;
+    [HideInInspector] public bool isSwitchingToShop = false;
     #endregion
 
     #region Objects
@@ -51,7 +52,9 @@ public class AutoClicManager : MonoBehaviour
     {
         autoClicSelling = true;
         autoClicDamaging = false;
-        boatManager.playerHealthBar.value = 0;
+        isSwitchingToShop = true;
+        StopAllCoroutines();
+        boatManager.StopAllCoroutines();
         if (autoClic)
         {
             StartCoroutine(SellingAutoClic());
@@ -62,6 +65,8 @@ public class AutoClicManager : MonoBehaviour
     {
         autoClicSelling = false;
         autoClicDamaging = true;
+        isSwitchingToShop = false;
+        StopAllCoroutines();
         if (autoClic)
         {
             StartCoroutine(DamagingAutoClic());
@@ -80,11 +85,12 @@ public class AutoClicManager : MonoBehaviour
         }
     }
 
-    IEnumerator DamagingAutoClic()
+    public IEnumerator DamagingAutoClic()
     {
         while (autoClicDamaging)
         {
             yield return new WaitForSeconds(timer);
+            print("DamageToBoat is running.");
             boatManager.DamageToBoat();
         }
     }

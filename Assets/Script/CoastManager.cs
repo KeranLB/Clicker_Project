@@ -24,6 +24,17 @@ public class CoastManager : MonoBehaviour
     [HideInInspector] public int coastButtonGetAutoClic;
     [HideInInspector] public int coastButtonAutoClicUp;
     #endregion
+
+    #region Screen
+    [Header("Texte coûts des améliorations :")]
+    [SerializeField] public Text textCoastLevelUp;
+    [SerializeField] public Text textCoastTitleUp;
+    [SerializeField] public Text textCoastDamage;
+    [SerializeField] public Text textCoastSell;
+    [SerializeField] public Text textCoastHealth;
+    [SerializeField] public Text textCoastGetAutoClic;
+    [SerializeField] public Text textCoastAutoClic;
+    #endregion
     // Start is called before the first frame update
     public void Start()
     {
