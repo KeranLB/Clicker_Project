@@ -15,13 +15,13 @@ public class AutoClicManager : MonoBehaviour
     [HideInInspector] public bool autoClic;
     private bool autoClicSelling;
     private bool autoClicDamaging;
-    private float timer = 1f;
+    private float timer = 1.5f;
     [HideInInspector] public bool isSwitchingToShop = false;
     #endregion
 
     #region Objects
-    [SerializeField] private GameObject getAutoClicGameObject;
-    [SerializeField] private GameObject autoClicUpGameObject;
+    [SerializeField] public GameObject getAutoClicGameObject;
+    [SerializeField] public GameObject autoClicUpGameObject;
     [HideInInspector] public Button getAutoClicButton;
     [HideInInspector] public Button autoClicUpButton;
     #endregion
@@ -49,8 +49,9 @@ public class AutoClicManager : MonoBehaviour
     public void ButonAutoClicUp()
     {
         gameManager.levelAutoClic += 1;
+        timer -= 0.1f;
         gameManager.playerGoldScore -= coastManager.coastButtonAutoClicUp;
-        coastManager.coastButtonAutoClicUp *= 10;
+        coastManager.coastButtonAutoClicUp += 10000;
     }
 
     public void SwitchAutoClicToShop()
@@ -85,7 +86,7 @@ public class AutoClicManager : MonoBehaviour
             yield return new WaitForSeconds(timer);
             if (gameManager.playerSellScore > 0)
             {
-                gameManager.SellScoreToGoldScore(gameManager.levelAutoClic);
+                gameManager.SellScoreToGoldScore();
             }
         }
     }
@@ -95,7 +96,6 @@ public class AutoClicManager : MonoBehaviour
         while (autoClicDamaging)
         {
             yield return new WaitForSeconds(timer);
-            print("DamageToBoat is running.");
             boatManager.DamageToBoat();
         }
     }

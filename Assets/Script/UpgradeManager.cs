@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.WSA;
 
 public class UpgradeManager : MonoBehaviour
 {
     #region Scripts
     [HideInInspector] private GameManager gameManager;
     [HideInInspector] private CoastManager coastManager;
+    private BoatManager boatManager;
     #endregion
     
     #region GameObjects
@@ -32,6 +32,7 @@ public class UpgradeManager : MonoBehaviour
     {
         gameManager = gameObject.GetComponent<GameManager>();
         coastManager = gameObject.GetComponent<CoastManager>();
+        boatManager = gameObject.GetComponent<BoatManager>();
 
         levelUpButton = levelUpGameObject.GetComponent<Button>();
         titleUpButton = titleUpGameObject.GetComponent<Button>();
@@ -49,6 +50,9 @@ public class UpgradeManager : MonoBehaviour
         }
         gameManager.playerLevel += 1;
         gameManager.playerGoldScore -= coastManager.coastButtonLevelUp;
+        boatManager.refBoatMaxHealth += (gameManager.playerLevel + 1) * coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
+        boatManager.refBoatDamage += (gameManager.playerLevel + 1) * coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
+        boatManager.refBoatValue += (gameManager.playerLevel + 1) * coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
         coastManager.coastButtonLevelUp += coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
     }
 
@@ -78,7 +82,7 @@ public class UpgradeManager : MonoBehaviour
         }
         gameManager.levelPlayerDamage++;
         gameManager.playerGoldScore -= coastManager.coastButtonDamageUp;
-        gameManager.playerClicDamage += 10 * (gameManager.playerTitleIndex + 1);
+        gameManager.playerClicDamage += (gameManager.playerLevel+1) * coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
         coastManager.coastButtonDamageUp += coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
     }
 
@@ -89,7 +93,7 @@ public class UpgradeManager : MonoBehaviour
             sellUpGameObject.SetActive(false);
         }
         gameManager.levelPlayerSell++;
-        gameManager.playerClicSell += 2;
+        gameManager.playerClicSell += (gameManager.playerLevel+1) * coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
         gameManager.playerGoldScore -= coastManager.coastButtonSellUp;
         coastManager.coastButtonSellUp += coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
     }
@@ -101,7 +105,7 @@ public class UpgradeManager : MonoBehaviour
             healthUpGameObject.SetActive(false);
         }
         gameManager.levelPlayerHealth++;
-        gameManager.playerHealth += 100;
+        gameManager.playerHealth += (gameManager.playerLevel +1) * coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
         gameManager.playerGoldScore -= coastManager.coastButtonHealthUp;
         coastManager.coastButtonHealthUp += coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
     }

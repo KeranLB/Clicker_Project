@@ -82,8 +82,8 @@ public class GameManager : MonoBehaviour
         playerSellScore = 0;
         levelShop = 1;
 
-        playerClicDamage = 1;
-        playerClicSell = 1;
+        playerClicDamage = 5;
+        playerClicSell = 5;
         playerHealth = 200;
 
 
@@ -104,6 +104,12 @@ public class GameManager : MonoBehaviour
         if (playerTitleIndex == 11 && playerLevel == 10)
         {
             levelUpButton.SetActive(false);
+        }
+        // enlève le bouton d'amélioration de l'autoClic quand il est au niveau 10
+        if(levelAutoClic == 10)
+        {
+            autoClicManager.autoClicUpGameObject.SetActive(false);
+            autoClicManager.getAutoClicGameObject.SetActive(false);
         }
         levelTextUpdate();
         coastManager.PlayVerifCoast();
@@ -144,11 +150,11 @@ public class GameManager : MonoBehaviour
     
     public void ButtonShop()
     {
-        SellScoreToGoldScore(playerClicSell);
+        SellScoreToGoldScore();
         print(playerClicSell);
     }
 
-    public void SellScoreToGoldScore(int sell)
+    public void SellScoreToGoldScore()
     {
         if (playerSellScore < playerClicSell)
         {
@@ -161,8 +167,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            playerSellScore -= sell;
-            playerGoldScore += sell;
+            playerSellScore -= playerClicSell;
+            playerGoldScore += playerClicSell;
         }
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
