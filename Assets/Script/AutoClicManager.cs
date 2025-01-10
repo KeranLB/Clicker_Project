@@ -8,6 +8,7 @@ public class AutoClicManager : MonoBehaviour
     #region Scripts
     [HideInInspector] private GameManager gameManager;
     [HideInInspector] private BoatManager boatManager;
+    private CoastManager coastManager;
     #endregion
 
     #region Variable
@@ -29,6 +30,7 @@ public class AutoClicManager : MonoBehaviour
     {
         gameManager = gameObject.GetComponent<GameManager>();
         boatManager = gameObject.GetComponent<BoatManager>();
+        coastManager = gameObject.GetComponent<CoastManager>();
 
         gameManager.levelAutoClic = 0;
         autoClic = false;
@@ -42,10 +44,13 @@ public class AutoClicManager : MonoBehaviour
     public void ButonGetAutoClic()
     {
         autoClic = true;
+        gameManager.playerGoldScore -= coastManager.coastButtonGetAutoClic;
     }
     public void ButonAutoClicUp()
     {
         gameManager.levelAutoClic += 1;
+        gameManager.playerGoldScore -= coastManager.coastButtonAutoClicUp;
+        coastManager.coastButtonAutoClicUp *= 10;
     }
 
     public void SwitchAutoClicToShop()

@@ -82,6 +82,11 @@ public class GameManager : MonoBehaviour
         playerSellScore = 0;
         levelShop = 1;
 
+        playerClicDamage = 1;
+        playerClicSell = 1;
+        playerHealth = 200;
+
+
         levelLimitUpgrade = 9;
         levelPlayerDamage = 0;
         levelPlayerSell = 0;
