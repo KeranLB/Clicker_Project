@@ -28,7 +28,7 @@ public class UpgradeManager : MonoBehaviour
     [HideInInspector] public Button healthUpButton;
     #endregion
 
-    public void StartUpgradeManager()
+    public void Start()
     {
         gameManager = gameObject.GetComponent<GameManager>();
         coastManager = gameObject.GetComponent<CoastManager>();
@@ -89,7 +89,7 @@ public class UpgradeManager : MonoBehaviour
             sellUpGameObject.SetActive(false);
         }
         gameManager.levelPlayerSell++;
-        gameManager.playerClicSell += ((gameManager.playerClicSell * 50) / 100);
+        gameManager.playerClicSell += 2;
         gameManager.playerGoldScore -= coastManager.coastButtonSellUp;
         coastManager.coastButtonSellUp += coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
     }
@@ -101,7 +101,7 @@ public class UpgradeManager : MonoBehaviour
             healthUpGameObject.SetActive(false);
         }
         gameManager.levelPlayerHealth++;
-        gameManager.playerHealth += ((gameManager.playerHealth * 50) / 100);
+        gameManager.playerHealth += 100;
         gameManager.playerGoldScore -= coastManager.coastButtonHealthUp;
         coastManager.coastButtonHealthUp += coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex);
     }

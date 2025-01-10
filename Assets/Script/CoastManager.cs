@@ -13,7 +13,6 @@ public class CoastManager : MonoBehaviour
 
     #region Gestion
     public Dictionary<int, int> coastDictionaire;
-    public int riseCoast;
     #endregion
 
     #region Variables
@@ -26,7 +25,7 @@ public class CoastManager : MonoBehaviour
     [HideInInspector] public int coastButtonAutoClicUp;
     #endregion
     // Start is called before the first frame update
-    public void StartCoastManager()
+    public void Start()
     {
         gameManager = gameObject.GetComponent<GameManager>();
         upgradeManager = gameObject.GetComponent<UpgradeManager>();

@@ -21,7 +21,7 @@ public class BoatManager : MonoBehaviour
 
     #region Screen
     [Header("Image Boat Boutton :")]
-    [HideInInspector] private Image BoatButton;
+    [SerializeField] private Image BoatButton;
     [Header("Text :")]
     [SerializeField] private Text textValue;
     [SerializeField] private Text textFaction;
@@ -53,7 +53,7 @@ public class BoatManager : MonoBehaviour
     #region Slider
     [Header("Slider :")]
     [SerializeField] private Slider boatHealthBar;
-    [SerializeField] private Slider playerHealthBar;
+    [SerializeField] public Slider playerHealthBar;
     #endregion
 
     private void Start()
@@ -62,15 +62,15 @@ public class BoatManager : MonoBehaviour
 
         baseHealthStatsFromTitle = new Dictionary<string, int>()
         {
-            { "marin", 100},
-            { "musicien", 200},
-            { "cuisinier", 400},
-            { "canonnier", 800},
-            { "voilier", 1600},
-            { "tonnelier", 3200},
-            { "charpentier", 6400},
-            { "officier", 12800},
-            { "maitreEquipage", 25600},
+            { "Marin", 100},
+            { "Musicien", 200},
+            { "Cuisinier", 400},
+            { "Canonnier", 800},
+            { "Voilier", 1600},
+            { "Tonnelier", 3200},
+            { "Charpentier", 6400},
+            { "Officier", 12800},
+            { "MaitreEquipage", 25600},
             { "Navigateur", 51200},
             { "QuartierMaitre", 102400},
             { "Capitaine", 204800},
@@ -78,15 +78,15 @@ public class BoatManager : MonoBehaviour
 
         baseBoatLootStats = new Dictionary<string, int>()
         {
-            { "marin", 25},
-            { "musicien", 50},
-            { "cuisinier", 100},
-            { "canonnier", 200},
-            { "voilier", 400},
-            { "tonnelier", 800},
-            { "charpentier", 1600},
-            { "officier", 3200},
-            { "maitreEquipage", 6400},
+            { "Marin", 25},
+            { "Musicien", 50},
+            { "Cuisinier", 100},
+            { "Canonnier", 200},
+            { "Voilier", 400},
+            { "Tonnelier", 800},
+            { "Charpentier", 1600},
+            { "Officier", 3200},
+            { "MaitreEquipage", 6400},
             { "Navigateur", 12800},
             { "QuartierMaitre", 25600},
             { "Capitaine", 51200},
@@ -94,15 +94,15 @@ public class BoatManager : MonoBehaviour
 
         baseBoatDamageStats = new Dictionary<string, int>()
         {
-            { "marin", 25},
-            { "musicien", 50},
-            { "cuisinier", 100},
-            { "canonnier", 200},
-            { "voilier", 400},
-            { "tonnelier", 800},
-            { "charpentier", 1600},
-            { "officier", 3200},
-            { "maitreEquipage", 6400},
+            { "Marin", 25},
+            { "Musicien", 50},
+            { "Cuisinier", 100},
+            { "Canonnier", 200},
+            { "Voilier", 400},
+            { "Tonnelier", 800},
+            { "Charpentier", 1600},
+            { "Officier", 3200},
+            { "MaitreEquipage", 6400},
             { "Navigateur", 12800},
             { "QuartierMaitre", 25600},
             { "Capitaine", 51200},
@@ -110,15 +110,15 @@ public class BoatManager : MonoBehaviour
 
         addStatsFromLevel = new Dictionary<string, int>()
         {
-            { "marin", 1},
-            { "musicien", 2},
-            { "cuisinier", 4},
-            { "canonnier", 8},
-            { "voilier", 16},
-            { "tonnelier", 32},
-            { "charpentier", 64},
-            { "officier", 128},
-            { "maitreEquipage", 256},
+            { "Marin", 1},
+            { "Musicien", 2},
+            { "Cuisinier", 4},
+            { "Canonnier", 8},
+            { "Voilier", 16},
+            { "Tonnelier", 32},
+            { "Charpentier", 64},
+            { "Officier", 128},
+            { "MaitreEquipage", 256},
             { "Navigateur", 512},
             { "QuartierMaitre", 1024},
             { "Capitaine", 2048},
@@ -174,6 +174,9 @@ public class BoatManager : MonoBehaviour
         boatHealthBar.maxValue = activeBoatMaxHealth;
         boatHealthBar.value = activeBoatCurrentHealth;
 
+        playerHealthBar.maxValue = gameManager.playerHealth;
+        playerHealthBar.value = gameManager.playerHealth;
+
         StartCoroutine(DamageToPlayer());
     }
 
@@ -198,13 +201,15 @@ public class BoatManager : MonoBehaviour
             playerHealthBar.value -= activeBoatDamage;
         }
 
-        if (playerHealthBar.value < 0)
+        if (playerHealthBar.value <= 0)
         {
+            gameManager.playerSellScore = 0;
             SpawnBoat();
         }
         else if (playerHealthBar.value > 0)
         {
             gameManager.playerSellScore += activeBoatValue;
+            SpawnBoat();
         }
     }
 }

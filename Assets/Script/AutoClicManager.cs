@@ -24,7 +24,7 @@ public class AutoClicManager : MonoBehaviour
     [HideInInspector] public Button autoClicUpButton;
     #endregion
 
-    public void StartAutoClicManager()
+    public void Start()
     {
         gameManager = gameObject.GetComponent<GameManager>();
         boatManager = gameObject.GetComponent<BoatManager>();
@@ -51,6 +51,7 @@ public class AutoClicManager : MonoBehaviour
     {
         autoClicSelling = true;
         autoClicDamaging = false;
+        boatManager.playerHealthBar.value = 0;
         if (autoClic)
         {
             StartCoroutine(SellingAutoClic());
@@ -72,7 +73,10 @@ public class AutoClicManager : MonoBehaviour
         while (autoClicSelling)
         {
             yield return new WaitForSeconds(timer);
-            gameManager.SellScoreToGoldScore(gameManager.levelAutoClic);
+            if (gameManager.playerSellScore > 0)
+            {
+                gameManager.SellScoreToGoldScore(gameManager.levelAutoClic);
+            }
         }
     }
 

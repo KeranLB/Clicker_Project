@@ -16,11 +16,12 @@ public class GameManager : MonoBehaviour
     #region Player
     [Header("Player Informations :")]
     [HideInInspector] public List<string> playerTitle;
-    [HideInInspector] public int playerTitleIndex;
+    public int playerTitleIndex;
     [HideInInspector] public int playerClicDamage;
     [HideInInspector] public int playerClicSell;
     [HideInInspector] public int playerHealth;
     [HideInInspector] public int playerLevel;
+    [HideInInspector] public bool godMode;
     #endregion
 
     #region Level
@@ -33,38 +34,41 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region score
-    [HideInInspector] public int playerGoldScore;
-    [HideInInspector] public int playerSellScore;
+    public long playerGoldScore;
+    public long playerSellScore;
     #endregion
 
     #region screenInfos
     [Header("Screen :")]
-    [SerializeField] private Text textLevelPlayer;
-    [SerializeField] private Text textGoldScore;
-    [SerializeField] private Text textSellScore;
-    [SerializeField] private Text textLevelShop;
-    [SerializeField] private Text textLevelDamage;
-    [SerializeField] private Text textLevelSell;
-    [SerializeField] private Text textLevelHealth;
-    [SerializeField] private Text textLevelAutoClic;
+    [SerializeField] public Text textLevelPlayer;
+    [SerializeField] public Text textGoldScore;
+    [SerializeField] public Text textSellScore;
+    [SerializeField] public Text textLevelShop;
+    [SerializeField] public Text textLevelDamage;
+    [SerializeField] public Text textLevelSell;
+    [SerializeField] public Text textLevelHealth;
+    [SerializeField] public Text textLevelAutoClic;
+    [SerializeField] public GameObject levelUpButton;
     #endregion
 
     void Start()
     {
         StartGameManager();
-        coastManager.StartCoastManager();
+        //coastManager.StartCoastManager();
         //boatManager.StartBoatManager();
-        upgradeManager.StartUpgradeManager();
-        autoClicManager.StartAutoClicManager();
+        //upgradeManager.StartUpgradeManager();
+        //autoClicManager.StartAutoClicManager();
     }
 
     private void StartGameManager()
     {
+        // Get OtheScripts
         coastManager = gameObject.GetComponent<CoastManager>();
         upgradeManager = gameObject.GetComponent<UpgradeManager>();
         boatManager = gameObject.GetComponent<BoatManager>();
         autoClicManager = gameObject.GetComponent<AutoClicManager>();
 
+        
         playerTitle = new List<string>
         {
             "Marin",
@@ -85,7 +89,7 @@ public class GameManager : MonoBehaviour
         playerTitleIndex = 0;
         playerGoldScore = 0;
         playerSellScore = 0;
-        levelShop = 0;
+        levelShop = 1;
 
         levelLimitUpgrade = 9;
         levelPlayerDamage = 0;
@@ -96,24 +100,38 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //test mode
-        playerGoldScore = 999999999;
+        if (godMode)
+        {
+            playerGoldScore = 999999999;
+        }
+
+        if (playerTitleIndex == 11 && playerLevel == 10)
+        {
+            levelUpButton.SetActive(false);
+        }
         levelTextUpdate();
         coastManager.PlayVerifCoast();
     }
-    /*
-    private void Test()
+
+    public void SetGodMode()
     {
-        print(coastManager.coastDictionaire.GetValueOrDefault(playerTitleIndex));
+        if (!godMode)
+        {
+            godMode = true;
+        }
+        else
+        {
+            godMode = false;
+        }
     }
-    */
     public void levelTextUpdate()
     {
         // affiche les Scores du joueur
-        textGoldScore.text = "Gold : " + playerGoldScore.ToString();
+        textGoldScore.text = $"Gold : {playerGoldScore}";
         textSellScore.text = "Loot Value : " + playerSellScore.ToString();
         // affiche les niveaux des différentes stats du joueur
         textLevelPlayer.text = playerTitle[playerTitleIndex].ToString() + " level" + playerLevel.ToString();
-        textLevelShop.text = "Level : " + levelShop.ToString();
+        textLevelShop.text = levelShop.ToString();
         textLevelDamage.text = "ATK Level" + levelPlayerDamage.ToString();
         textLevelSell.text = "Sell Level" + levelPlayerSell.ToString();
         textLevelHealth.text = "HP Level" + levelPlayerHealth.ToString();
