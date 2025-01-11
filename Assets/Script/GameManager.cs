@@ -11,12 +11,13 @@ public class GameManager : MonoBehaviour
     [HideInInspector] private UpgradeManager upgradeManager;
     [HideInInspector] private BoatManager boatManager;
     [HideInInspector] private AutoClicManager autoClicManager;
+    private SaveManager saveManager;
     #endregion
 
     #region Player
     [Header("Player Informations :")]
     [HideInInspector] public List<string> playerTitle;
-    public int playerTitleIndex;
+    [HideInInspector]  public int playerTitleIndex;
     [HideInInspector] public int playerClicDamage;
     [HideInInspector] public int playerClicSell;
     [HideInInspector] public int playerHealth;
@@ -34,8 +35,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region score
-    public long playerGoldScore;
-    public long playerSellScore;
+    [HideInInspector] public int playerGoldScore;
+    [HideInInspector] public int playerSellScore;
     #endregion
 
     #region screenInfos
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         upgradeManager = gameObject.GetComponent<UpgradeManager>();
         boatManager = gameObject.GetComponent<BoatManager>();
         autoClicManager = gameObject.GetComponent<AutoClicManager>();
-
+        saveManager = gameObject.GetComponent<SaveManager>();
         
         playerTitle = new List<string>
         {
@@ -91,6 +92,8 @@ public class GameManager : MonoBehaviour
         levelPlayerDamage = 0;
         levelPlayerSell = 0;
         levelPlayerHealth = 0;
+
+
     }
 
     private void Update()
@@ -106,11 +109,7 @@ public class GameManager : MonoBehaviour
             levelUpButton.SetActive(false);
         }
         // enlève le bouton d'amélioration de l'autoClic quand il est au niveau 10
-        if(levelAutoClic == 10)
-        {
-            autoClicManager.autoClicUpGameObject.SetActive(false);
-            autoClicManager.getAutoClicGameObject.SetActive(false);
-        }
+        autoClicManager.ButtonAutoClicPrint();
         levelTextUpdate();
         coastManager.PlayVerifCoast();
     }

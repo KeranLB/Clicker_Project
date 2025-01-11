@@ -9,6 +9,7 @@ public class CoastManager : MonoBehaviour
     [HideInInspector] private GameManager gameManager;
     [HideInInspector] private UpgradeManager upgradeManager;
     [HideInInspector] private AutoClicManager autoClicManager;
+    private SaveManager saveManager;
     #endregion
 
     #region Gestion
@@ -41,6 +42,7 @@ public class CoastManager : MonoBehaviour
         gameManager = gameObject.GetComponent<GameManager>();
         upgradeManager = gameObject.GetComponent<UpgradeManager>();
         autoClicManager = gameObject.GetComponent<AutoClicManager>();
+        saveManager = gameObject.GetComponent<SaveManager>();
 
         // { indexTitle , riseCoast }
         coastDictionaire = new Dictionary<int, int>()
@@ -65,7 +67,8 @@ public class CoastManager : MonoBehaviour
         coastButtonSellUp = 10;
         coastButtonHealthUp = 20;
         coastButtonGetAutoClic = 10000;
-        coastButtonAutoClicUp = 1000;
+
+
     }
 
     public void PlayVerifCoast()

@@ -9,13 +9,14 @@ public class AutoClicManager : MonoBehaviour
     [HideInInspector] private GameManager gameManager;
     [HideInInspector] private BoatManager boatManager;
     private CoastManager coastManager;
+    private SaveManager saveManager;
     #endregion
 
     #region Variable
     [HideInInspector] public bool autoClic;
     private bool autoClicSelling;
     private bool autoClicDamaging;
-    private float timer = 1.5f;
+    public float timer = 1.5f;
     [HideInInspector] public bool isSwitchingToShop = false;
     #endregion
 
@@ -31,6 +32,7 @@ public class AutoClicManager : MonoBehaviour
         gameManager = gameObject.GetComponent<GameManager>();
         boatManager = gameObject.GetComponent<BoatManager>();
         coastManager = gameObject.GetComponent<CoastManager>();
+        saveManager = gameObject.GetComponent<SaveManager>();
 
         gameManager.levelAutoClic = 0;
         autoClic = false;
@@ -39,6 +41,27 @@ public class AutoClicManager : MonoBehaviour
         getAutoClicButton = getAutoClicGameObject.GetComponent<Button>();
         autoClicUpButton = autoClicUpGameObject.GetComponent<Button>();
         autoClicUpGameObject.SetActive(false);
+
+
+    }
+
+    public void ButtonAutoClicPrint()
+    {
+        if (gameManager.levelAutoClic == 10)
+        {
+            autoClicUpGameObject.SetActive(false);
+            getAutoClicGameObject.SetActive(false);
+        }
+        else if (autoClic)
+        {
+            autoClicUpGameObject.SetActive(true);
+            getAutoClicGameObject.SetActive(false);
+        }
+        else
+        {
+            autoClicUpGameObject.SetActive(false);
+            getAutoClicGameObject.SetActive(true);
+        }
     }
 
     public void ButonGetAutoClic()

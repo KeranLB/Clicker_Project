@@ -9,7 +9,7 @@ public class BoatManager : MonoBehaviour
     [Header("ScriptsManager :")]
     [HideInInspector] private GameManager gameManager;
     private AutoClicManager autoClicManager;
-    private CoastManager coastManager;
+    private SaveManager saveManager;
     #endregion
 
     #region ScriptableObjects
@@ -61,7 +61,7 @@ public class BoatManager : MonoBehaviour
     {
         gameManager = gameObject.GetComponent<GameManager>();
         autoClicManager = gameObject.GetComponent<AutoClicManager>();
-        coastManager = gameObject.GetComponent<CoastManager>();
+        saveManager = gameObject.GetComponent<SaveManager>();
 
         baseHealthStatsFromTitle = new Dictionary<string, int>()
         {
@@ -138,19 +138,10 @@ public class BoatManager : MonoBehaviour
         refBoatDamage = 25;
         refBoatValue = 50;
         refBoatMaxHealth = 100;
+
+
     }
-    /*
-    private void SetBoatref()
-    {
-        int baseRef = baseHealthStatsFromTitle.GetValueOrDefault(gameManager.playerTitle[gameManager.playerTitleIndex]);
-        int addRef = addStatsFromLevel.GetValueOrDefault(gameManager.playerTitle[gameManager.playerTitleIndex]);
-        refBoatMaxHealth = baseRef + (addRef * gameManager.playerLevel * coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex));
-        baseRef = baseBoatLootStats.GetValueOrDefault(gameManager.playerTitle[gameManager.playerTitleIndex]);
-        refBoatValue = baseRef + (addRef * gameManager.playerLevel * coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex));
-        baseRef = baseBoatDamageStats.GetValueOrDefault(gameManager.playerTitle[gameManager.playerTitleIndex]);
-        refBoatDamage = baseRef + (addRef * gameManager.playerLevel * coastManager.coastDictionaire.GetValueOrDefault(gameManager.playerTitleIndex));
-    }
-    */
+
     public void SpawnBoat()
     {
         //SetBoatref();
