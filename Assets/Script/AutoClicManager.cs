@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,16 +44,19 @@ public class AutoClicManager : MonoBehaviour
 
     public void ButtonAutoClicPrint()
     {
+        // Si l'auto Clic atteint le level 10 il désactive son bouton
         if (gameManager.levelAutoClic == 10)
         {
             autoClicUpGameObject.SetActive(false);
             getAutoClicGameObject.SetActive(false);
         }
+        // Sinon si il possède juste l autoClic il désactive le bouton pour obtenir l auto Clic et désactive celui de l'amélioration
         else if (autoClic)
         {
             autoClicUpGameObject.SetActive(true);
             getAutoClicGameObject.SetActive(false);
         }
+        // Sinon il active le bouton pour obtenir l auto clic et desactive celui de l'amélioration
         else
         {
             autoClicUpGameObject.SetActive(false);
@@ -64,11 +66,14 @@ public class AutoClicManager : MonoBehaviour
 
     public void ButonGetAutoClic()
     {
+        // obtient l auto clic et déduis son prix au gold score
         autoClic = true;
         gameManager.playerGoldScore -= coastManager.coastButtonGetAutoClic;
     }
+
     public void ButonAutoClicUp()
     {
+        // améliore l'auitoClic et déduis son prix au gold score
         gameManager.levelAutoClic += 1;
         timer -= 0.1f;
         gameManager.playerGoldScore -= coastManager.coastButtonAutoClicUp;
@@ -77,6 +82,7 @@ public class AutoClicManager : MonoBehaviour
 
     public void SwitchAutoClicToShop()
     {
+        // active l'autoclic de revente et arrete l auto clic de dégâts
         autoClicSelling = true;
         autoClicDamaging = false;
         isSwitchingToShop = true;
@@ -90,6 +96,7 @@ public class AutoClicManager : MonoBehaviour
 
     public void SwitchAutoClicToFight()
     {
+        // active l autoClic de dégâts et arrete celui de revente
         autoClicSelling = false;
         autoClicDamaging = true;
         isSwitchingToShop = false;
@@ -102,6 +109,7 @@ public class AutoClicManager : MonoBehaviour
 
     IEnumerator SellingAutoClic()
     {
+        //boucle pour réaliser l auto clic de revente
         while (autoClicSelling)
         {
             yield return new WaitForSeconds(timer);
@@ -114,6 +122,7 @@ public class AutoClicManager : MonoBehaviour
 
     public IEnumerator DamagingAutoClic()
     {
+        // boucle pour réamiser l 'auto clic de dégâts
         while (autoClicDamaging)
         {
             yield return new WaitForSeconds(timer);

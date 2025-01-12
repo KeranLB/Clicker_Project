@@ -24,8 +24,6 @@ public class BoatManager : MonoBehaviour
     [Header("Image Boat Boutton :")]
     [SerializeField] private Image BoatButton;
     [Header("Text :")]
-    [SerializeField] private Text textValue;
-    [SerializeField] private Text textFaction;
     [SerializeField] private Text textHp;
     #endregion
 
@@ -72,6 +70,7 @@ public class BoatManager : MonoBehaviour
 
     public void SpawnBoat()
     {
+        // gère le spawn de bâteau aléatoire et met a jour les textes
         StopAllCoroutines();
 
         var index = Random.Range(0, 4);
@@ -83,8 +82,6 @@ public class BoatManager : MonoBehaviour
         activeBoatValue = refBoatValue * activeBoat.multiplicateurValue;
 
         BoatButton.sprite = activeBoat.boatSprite;
-        textValue.text = activeBoatValue.ToString();
-        textFaction.text = activeBoat.boatFaction.ToString();
         textHp.text = $"{activeBoatMaxHealth} Hp";
         
         boatHealthBar.maxValue = activeBoatMaxHealth;
@@ -98,6 +95,7 @@ public class BoatManager : MonoBehaviour
 
     public void DamageToBoat()
     {
+        // fonction qui applique les dégats du joueur au bateau afficher
         if (activeBoatCurrentHealth < gameManager.playerClicDamage)
         {
             activeBoatCurrentHealth = 0;
@@ -111,6 +109,8 @@ public class BoatManager : MonoBehaviour
 
     IEnumerator DamageToPlayer()
     {
+        // permet de réaliser les dégats des bâteau aux joueurs et de vérifier si c le bateau ennemie ou le joueur qui gagne le duel
+        // et agir en conséquence
         while (playerHealthBar.value > 0 && boatHealthBar.value > 0)
         {
             yield return new WaitForSeconds(1);
@@ -118,8 +118,10 @@ public class BoatManager : MonoBehaviour
             playerHealthBar.value -= activeBoatDamage;
         }
 
+        // Si le joueur perd le duel : il perd tout son lootValue et refait spawn un autre bâteau aléatoire
         if (playerHealthBar.value <= 0)
         {
+            // Verifie si il n'est pas en train de changer de canvas
             if (!autoClicManager.isSwitchingToShop)
             {
                 gameManager.playerSellScore = 0;
@@ -130,6 +132,7 @@ public class BoatManager : MonoBehaviour
             }
             SpawnBoat();
         }
+        // Si le joueur gagne le duel, il récupére le loot du bateau et en refait spawn un autre
         else if (playerHealthBar.value > 0)
         {
             gameManager.playerSellScore += activeBoatValue;

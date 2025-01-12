@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -90,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Update()
+     private void Update()
     {
         //test mode
         if (godMode)
@@ -121,17 +119,17 @@ public class GameManager : MonoBehaviour
     }
     public void levelTextUpdate()
     {
-        // affiche les Scores du joueur
+        // met à jour les Scores du joueur
         textGoldScore.text = $"Gold : {playerGoldScore}";
         textSellScore.text = "Loot Value : " + playerSellScore.ToString();
-        // affiche les niveaux des différentes stats du joueur
+        // met à jour les niveaux des différentes stats du joueur
         textLevelPlayer.text = playerTitle[playerTitleIndex].ToString() + " level" + playerLevel.ToString();
         textLevelShop.text = levelShop.ToString();
         textLevelDamage.text = "ATK Level" + levelPlayerDamage.ToString();
         textLevelSell.text = "Sell Level" + levelPlayerSell.ToString();
         textLevelHealth.text = "HP Level" + levelPlayerHealth.ToString();
         textLevelAutoClic.text = "Auto Clic Level" + levelAutoClic.ToString();
-        // affiche le prix de chaque amélioration
+        // met à jour le prix de chaque amélioration
         coastManager.textCoastLevelUp.text = $"Level Up : {coastManager.coastButtonLevelUp}$";
         coastManager.textCoastTitleUp.text = $"Title Up : {coastManager.coastButtonTitleUp}$";
         coastManager.textCoastDamage.text = $"Damage Up : {coastManager.coastButtonDamageUp}$";
@@ -144,11 +142,11 @@ public class GameManager : MonoBehaviour
     public void ButtonShop()
     {
         SellScoreToGoldScore();
-        print(playerClicSell);
     }
 
     public void SellScoreToGoldScore()
     {
+        // vend le loot pour des golds en fonctions du ClicSell
         if (playerSellScore < playerClicSell)
         {
             playerGoldScore += playerSellScore;

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -71,6 +70,8 @@ public class CoastManager : MonoBehaviour
 
     public void PlayVerifCoast()
     {
+        //Verifie si le prix des boutons est supérieur au goldScore du joueur et si oui
+        //il les désactive tant que le gold score n'est pas supérieur
         CoastVerif(upgradeManager.levelUpButton, coastButtonLevelUp);
         CoastVerif(upgradeManager.titleUpButton, coastButtonTitleUp);
         CoastVerif(upgradeManager.damageUpButton, coastButtonDamageUp);

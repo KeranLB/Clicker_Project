@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,6 +42,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void ButonLevelUp()
     {
+        // améliore le niveau du joueur et passe du bouton levelUp au bouton TitleUp quand il atteint le niveau 10
         if (gameManager.playerLevel == 9 && gameManager.playerTitleIndex < 12)
         {
             titleUpGameObject.SetActive(true);
@@ -58,6 +58,8 @@ public class UpgradeManager : MonoBehaviour
 
     public void ButtonTitleUp()
     {
+        // amelior le titre du joueur et passe du bouton TitleUp au bouton LevelUp quand il augmente d'un titre
+        // et deduis le prix au goldScore du joueur
         if (gameManager.playerTitleIndex < 12)
         {
             gameManager.playerGoldScore -= coastManager.coastButtonTitleUp;
@@ -76,6 +78,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void ButonDamageUp()
     {
+        // augmente les dégâts et le niveau des dégâts et déduis le prix de l'amélioration au goldScore du joueur
         if (gameManager.levelPlayerDamage == gameManager.levelLimitUpgrade)
         {
             damageUpGameObject.SetActive(false);
@@ -88,6 +91,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void ButonSellUp()
     {
+        // augmente la revente et le niveau de la revente et déduis le prix de l'amélioration au goldScore du joueur
         if (gameManager.levelPlayerSell == gameManager.levelLimitUpgrade)
         {
             sellUpGameObject.SetActive(false);
@@ -100,6 +104,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void ButonHealthUp()
     {
+        // augmente la vie et le niveau de sa vie et déduis le prix de l'amélioration au goldScore du joueur
         if (gameManager.levelPlayerHealth == gameManager.levelLimitUpgrade)
         {
             healthUpGameObject.SetActive(false);
