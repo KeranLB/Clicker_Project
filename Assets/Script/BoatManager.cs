@@ -9,7 +9,6 @@ public class BoatManager : MonoBehaviour
     [Header("ScriptsManager :")]
     [HideInInspector] private GameManager gameManager;
     private AutoClicManager autoClicManager;
-    private SaveManager saveManager;
     #endregion
 
     #region ScriptableObjects
@@ -31,10 +30,6 @@ public class BoatManager : MonoBehaviour
     #endregion
 
     #region Data
-    private Dictionary<string, int> baseHealthStatsFromTitle;
-    private Dictionary<string, int> baseBoatLootStats;
-    private Dictionary<string, int> baseBoatDamageStats;
-    private Dictionary<string, int> addStatsFromLevel;
     private List<Boat> factionList;
     #endregion
 
@@ -61,71 +56,6 @@ public class BoatManager : MonoBehaviour
     {
         gameManager = gameObject.GetComponent<GameManager>();
         autoClicManager = gameObject.GetComponent<AutoClicManager>();
-        saveManager = gameObject.GetComponent<SaveManager>();
-
-        baseHealthStatsFromTitle = new Dictionary<string, int>()
-        {
-            { "Marin", 100},
-            { "Musicien", 200},
-            { "Cuisinier", 400},
-            { "Canonnier", 800},
-            { "Voilier", 1600},
-            { "Tonnelier", 3200},
-            { "Charpentier", 6400},
-            { "Officier", 12800},
-            { "MaitreEquipage", 25600},
-            { "Navigateur", 51200},
-            { "QuartierMaitre", 102400},
-            { "Capitaine", 204800},
-        };
-
-        baseBoatLootStats = new Dictionary<string, int>()
-        {
-            { "Marin", 25},
-            { "Musicien", 50},
-            { "Cuisinier", 100},
-            { "Canonnier", 200},
-            { "Voilier", 400},
-            { "Tonnelier", 800},
-            { "Charpentier", 1600},
-            { "Officier", 3200},
-            { "MaitreEquipage", 6400},
-            { "Navigateur", 12800},
-            { "QuartierMaitre", 25600},
-            { "Capitaine", 51200},
-        };
-
-        baseBoatDamageStats = new Dictionary<string, int>()
-        {
-            { "Marin", 25},
-            { "Musicien", 50},
-            { "Cuisinier", 100},
-            { "Canonnier", 200},
-            { "Voilier", 400},
-            { "Tonnelier", 800},
-            { "Charpentier", 1600},
-            { "Officier", 3200},
-            { "MaitreEquipage", 6400},
-            { "Navigateur", 12800},
-            { "QuartierMaitre", 25600},
-            { "Capitaine", 51200},
-        };
-
-        addStatsFromLevel = new Dictionary<string, int>()
-        {
-            { "Marin", 1},
-            { "Musicien", 2},
-            { "Cuisinier", 4},
-            { "Canonnier", 8},
-            { "Voilier", 16},
-            { "Tonnelier", 32},
-            { "Charpentier", 64},
-            { "Officier", 128},
-            { "MaitreEquipage", 256},
-            { "Navigateur", 512},
-            { "QuartierMaitre", 1024},
-            { "Capitaine", 2048},
-        };
 
         factionList = new List<Boat>()
         {
@@ -138,13 +68,10 @@ public class BoatManager : MonoBehaviour
         refBoatDamage = 25;
         refBoatValue = 50;
         refBoatMaxHealth = 100;
-
-
     }
 
     public void SpawnBoat()
     {
-        //SetBoatref();
         StopAllCoroutines();
 
         var index = Random.Range(0, 4);

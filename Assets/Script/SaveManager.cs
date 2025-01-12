@@ -143,7 +143,7 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.SetInt("playerLevel", 0);
 
         PlayerPrefs.SetInt("levelAutoClic", 0);
-        PlayerPrefs.SetInt("levelLimitUpgrade", 0);
+        PlayerPrefs.SetInt("levelLimitUpgrade", 9);
         PlayerPrefs.SetInt("levelPlayerDamage", 0);
         PlayerPrefs.SetInt("levelPlayerSell", 0);
         PlayerPrefs.SetInt("levelPlayerHealth", 0);

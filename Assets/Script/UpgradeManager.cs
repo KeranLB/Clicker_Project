@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class UpgradeManager : MonoBehaviour
 {
     #region Scripts
-    [HideInInspector] private GameManager gameManager;
-    [HideInInspector] private CoastManager coastManager;
+    private GameManager gameManager;
+    private CoastManager coastManager;
     private BoatManager boatManager;
     #endregion
     

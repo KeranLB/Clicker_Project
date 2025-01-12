@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ff79e270636ab4d9ea3e6fe0a7a9a5, type: 3}
   m_Name: MilitaryBoat
   m_EditorClassIdentifier: 
-  boatSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  boatSprite: {fileID: 21300000, guid: 44f617bbf54c3e0478f5631ab15ed8e4, type: 3}
   boatFaction: 3
   multiplicateurAttack: 1
   multiplicateurHealth: 2

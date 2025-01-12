@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ff79e270636ab4d9ea3e6fe0a7a9a5, type: 3}
   m_Name: PirateBoat
   m_EditorClassIdentifier: 
-  boatSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  boatSprite: {fileID: 21300000, guid: d5cb93b8d9e46ca408761e434fbe025a, type: 3}
   boatFaction: 0
   multiplicateurAttack: 1
   multiplicateurHealth: 1

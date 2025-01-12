@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class AutoClicManager : MonoBehaviour
 {
     #region Scripts
-    [HideInInspector] private GameManager gameManager;
-    [HideInInspector] private BoatManager boatManager;
+    private GameManager gameManager;
+    private BoatManager boatManager;
     private CoastManager coastManager;
-    private SaveManager saveManager;
     #endregion
 
     #region Variable
@@ -32,7 +31,6 @@ public class AutoClicManager : MonoBehaviour
         gameManager = gameObject.GetComponent<GameManager>();
         boatManager = gameObject.GetComponent<BoatManager>();
         coastManager = gameObject.GetComponent<CoastManager>();
-        saveManager = gameObject.GetComponent<SaveManager>();
 
         gameManager.levelAutoClic = 0;
         autoClic = false;

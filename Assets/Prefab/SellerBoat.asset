@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ff79e270636ab4d9ea3e6fe0a7a9a5, type: 3}
   m_Name: SellerBoat
   m_EditorClassIdentifier: 
-  boatSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  boatSprite: {fileID: 21300000, guid: ef6a985744df0ec40bfd46377eed2270, type: 3}
   boatFaction: 1
   multiplicateurAttack: 0
   multiplicateurHealth: 2

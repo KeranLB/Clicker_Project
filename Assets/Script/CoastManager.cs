@@ -6,14 +6,13 @@ using UnityEngine.UI;
 public class CoastManager : MonoBehaviour
 {
     #region Scripts
-    [HideInInspector] private GameManager gameManager;
-    [HideInInspector] private UpgradeManager upgradeManager;
-    [HideInInspector] private AutoClicManager autoClicManager;
-    private SaveManager saveManager;
+    private GameManager gameManager;
+    private UpgradeManager upgradeManager;
+    private AutoClicManager autoClicManager;
     #endregion
 
     #region Gestion
-    public Dictionary<int, int> coastDictionaire;
+    [HideInInspector] public Dictionary<int, int> coastDictionaire;
     #endregion
 
     #region Variables
@@ -42,7 +41,6 @@ public class CoastManager : MonoBehaviour
         gameManager = gameObject.GetComponent<GameManager>();
         upgradeManager = gameObject.GetComponent<UpgradeManager>();
         autoClicManager = gameObject.GetComponent<AutoClicManager>();
-        saveManager = gameObject.GetComponent<SaveManager>();
 
         // { indexTitle , riseCoast }
         coastDictionaire = new Dictionary<int, int>()

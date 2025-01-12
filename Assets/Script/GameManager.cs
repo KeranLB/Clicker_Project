@@ -7,17 +7,14 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     #region Scripts
-    [HideInInspector] private CoastManager coastManager;
-    [HideInInspector] private UpgradeManager upgradeManager;
-    [HideInInspector] private BoatManager boatManager;
-    [HideInInspector] private AutoClicManager autoClicManager;
-    private SaveManager saveManager;
+    private CoastManager coastManager;
+    private AutoClicManager autoClicManager;
     #endregion
 
     #region Player
     [Header("Player Informations :")]
     [HideInInspector] public List<string> playerTitle;
-    [HideInInspector]  public int playerTitleIndex;
+    [HideInInspector] public int playerTitleIndex;
     [HideInInspector] public int playerClicDamage;
     [HideInInspector] public int playerClicSell;
     [HideInInspector] public int playerHealth;
@@ -56,10 +53,7 @@ public class GameManager : MonoBehaviour
     {
         // Récupère les autres scripts
         coastManager = gameObject.GetComponent<CoastManager>();
-        upgradeManager = gameObject.GetComponent<UpgradeManager>();
-        boatManager = gameObject.GetComponent<BoatManager>();
         autoClicManager = gameObject.GetComponent<AutoClicManager>();
-        saveManager = gameObject.GetComponent<SaveManager>();
         
         playerTitle = new List<string>
         {
