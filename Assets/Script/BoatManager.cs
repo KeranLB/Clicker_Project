@@ -32,7 +32,7 @@ public class BoatManager : MonoBehaviour
     #endregion
 
     #region StatsReferences
-    [HideInInspector]public int refBoatMaxHealth;
+    [HideInInspector] public int refBoatMaxHealth;
     [HideInInspector] public int refBoatDamage;
     [HideInInspector] public int refBoatValue;
     #endregion
@@ -114,7 +114,6 @@ public class BoatManager : MonoBehaviour
         while (playerHealthBar.value > 0 && boatHealthBar.value > 0)
         {
             yield return new WaitForSeconds(1);
-            print("DamageToPlayer is running.");
             playerHealthBar.value -= activeBoatDamage;
         }
 

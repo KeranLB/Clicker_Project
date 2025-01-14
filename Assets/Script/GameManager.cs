@@ -146,6 +146,10 @@ public class GameManager : MonoBehaviour
 
     public void SellScoreToGoldScore()
     {
+/*        int montantAEnlever = Mathf.Min(playerSellScore, playerClicSell);
+        playerSellScore -= montantAEnlever;
+        playerGoldScore += montantAEnlever;*/
+
         // vend le loot pour des golds en fonctions du ClicSell
         if (playerSellScore < playerClicSell)
         {
